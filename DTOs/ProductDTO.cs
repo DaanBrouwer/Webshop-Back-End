@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using WhiteLabelWebshopS3.DTOs;
-
-namespace WhiteLabelWebshopS3.Entities
+﻿namespace WhiteLabelWebshopS3.DTOs
 {
-    public class Product
+    public class ProductDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -11,8 +8,7 @@ namespace WhiteLabelWebshopS3.Entities
         public string Description { get; set; }
         public long Price { get; set; }
 
-        public ICollection<Category> Category { get; set; }
-        public ICollection<OrderDetails> OrderDetails { get; set; }
+        public int CategoryId { get; set; }
 
         public string Brand { get; set; }
 

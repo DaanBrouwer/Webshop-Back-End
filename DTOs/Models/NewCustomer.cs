@@ -1,0 +1,13 @@
+﻿namespace WhiteLabelWebshopS3.DTOs.Models
+{
+    public class NewCustomer
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+        public string PhoneNumber { get; set; }
+
+       
+    }
+}
