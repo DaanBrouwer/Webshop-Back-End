@@ -6,7 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
-using WhiteLabelWebshopS3.Data;
+using WhiteLabelWebshopS3.BAL.Interfaces;
+using WhiteLabelWebshopS3.BAL.Services;
+using WhiteLabelWebshopS3.DAL;
+using WhiteLabelWebshopS3.DAL.Repositories;
 
 namespace API
 {
@@ -36,6 +39,8 @@ namespace API
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddCors();
+            services.AddScoped<IProducts, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
 
         }
 
