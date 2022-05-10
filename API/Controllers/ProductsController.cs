@@ -24,44 +24,30 @@ namespace WhiteLabelWebshopS3.Controllers
         {
             _products = products;
         }
+
         // GET:  //api/products
         [HttpGet()]
         public async Task<ActionResult<List<Product>>> Index()
         {
-            //var result = await _products.Products.ToListAsync();
-
             return Ok(await _products.Index());
-
         }
 
         //api/products/id
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> Get(int id)
         {
-            //var product = await _context.Products.SingleOrDefaultAsync(x => x.Id == id);
-
             return Ok(await _products.Get(id));
         }
 
         //api/products/id
         [HttpDelete("{id}")]
         //ToDo goede integratie of nog via Auth0 doen?
-        [Authorize]
         public async Task<ActionResult> Delete(int id)
         {
-            //var deleteProduct = await _context.Products.SingleOrDefaultAsync(x => x.Id == id);
-            //if (deleteProduct != null)
-            //{
-            //    _context.Products.Remove(deleteProduct);
-            //    await _context.SaveChangesAsync();
-            //    return (Ok(deleteProduct));
-            //}
-            //else
-            //{
-            //    return BadRequest();
-            //}
+
             return Ok(await _products.Delete(id));
         }
+
         [HttpPost]
         public async Task<ActionResult> NewProduct(ProductDTO product)
         {
@@ -75,39 +61,29 @@ namespace WhiteLabelWebshopS3.Controllers
                 Brand = product.Brand,
                 Stock = product.Stock
             };
-            //_context.Products.Add(newProduct);
-            //await _context.SaveChangesAsync();
-            //return (Ok(newProduct));
+
             return Ok(await _products.NewProduct(newProduct));
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateProduct(ProductDTO product)
+        public async Task<ActionResult> UpdateProduct(int id, ProductDTO product)
         {
-            //var updateproduct = await _context.Products.FindAsync(product.Id);
+            if (id != product.Id)
+            {
+                return BadRequest();
+            }
+            return Ok(await _products.UpdateProduct(new ProductModel
+            {
+                Id = id,
+                Name = product.Name,
+                Description = product.Description,
+                Price= product.Price,
+                // ToDo Veranderen naar id van category
+                //Category = product.Category,
+                Brand = product.Brand,
+                Stock = product.Stock
 
-            //if (updateproduct != null)
-            //{
-            //    updateproduct = new Product
-            //    {
-            //        Id = product.Id,
-            //        Name = product.Name,
-            //        Description = product.Description,
-            //        Price = product.Price,
-            //        // ToDo Veranderen naar id van category
-            //        //Category = product.Category,
-            //        Brand = product.Brand,
-            //        Stock = product.Stock
-            //    };
-            //    await _context.SaveChangesAsync();
-            //    return Ok(updateproduct);
-            //}
-            //else
-            //{
-            //    return NotFound();
-            //}
-            //return Ok(await _products.UpdateProduct( ))
-            return Ok();
+            }));
         }
     }
 }

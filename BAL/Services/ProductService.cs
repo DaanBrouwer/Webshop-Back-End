@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using WhiteLabelWebshopS3.BAL.Interfaces;
 using WhiteLabelWebshopS3.BAL.Models;
+using WhiteLabelWebshopS3.DTOs;
 
 namespace WhiteLabelWebshopS3.BAL.Services
 {
@@ -16,26 +17,44 @@ namespace WhiteLabelWebshopS3.BAL.Services
 
         public async Task<List<ProductModel>> Index()
         {
+            //List<ProductModel> allproducts = await _products.Index();
+            //List<ProductDTO> productDTOs = new List<ProductDTO>();
+            
+            //foreach (ProductModel product in allproducts)
+            //{
+            //    new ProductDTO
+            //    {
+            //        Id = product.Id,
+            //        Name = product.Name,
+            //        Description = product.Description,
+            //        Price = product.Price,
+
+
+            //        Brand = product.Brand,
+            //        Stock = product.Stock,
+                    
+            //    }
+            //}
             return await _products.Index();
         }
 
         public async Task<ProductModel> Get(int id)
         {
-            throw new System.NotImplementedException();
+            return await _products.Get(id);
         }
 
         public async Task<ProductModel> NewProduct(ProductModel product)
         {
-            throw new System.NotImplementedException();
+            return await _products.NewProduct(product);
         }
 
-        public async Task<ProductModel> UpdateProduct(ProductModel product, List<CategoryModel> categoryModels)
+        public async Task<ProductModel> UpdateProduct(ProductModel product)
         {
-            throw new System.NotImplementedException();
+            return await _products.UpdateProduct(product);
         }
         public async Task<ProductModel> Delete(int id)
         {
-            throw new System.NotImplementedException();
+            return await _products.Delete(id);
         }
     }
 }

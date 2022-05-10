@@ -1,4 +1,6 @@
-﻿namespace WhiteLabelWebshopS3.DTOs
+﻿using System.Collections.Generic;
+
+namespace WhiteLabelWebshopS3.DTOs
 {
     public class ProductDTO
     {
@@ -8,7 +10,7 @@
         public string Description { get; set; }
         public long Price { get; set; }
 
-        public int CategoryId { get; set; }
+        public List<CategoryDTO> categories { get; set; }
 
         public string Brand { get; set; }
 

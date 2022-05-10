@@ -23,6 +23,7 @@ namespace WhiteLabelWebshopS3.DAL.Repositories
         {
             var entity = _storeContext.Remove(new Product { Id = id }).Entity;
             await _storeContext.SaveChangesAsync();
+
             return new ProductModel
             {
                 Id = entity.Id
@@ -37,7 +38,7 @@ namespace WhiteLabelWebshopS3.DAL.Repositories
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
-                Category = product.Category.Select(c => new CategoryModel
+                Category = (List<CategoryModel>)product.Category.Select(c => new CategoryModel
                 {
                     Id = c.Id,
                     Name = c.Name
@@ -59,7 +60,7 @@ namespace WhiteLabelWebshopS3.DAL.Repositories
                     Name = product.Name,
                     Description = product.Description,
                     Price = product.Price,
-                    Category = product.Category.Select(c => new CategoryModel
+                    Category = (List<CategoryModel>)product.Category.Select(c => new CategoryModel
                     {
                         Id = c.Id,
                         Name = c.Name
@@ -73,21 +74,29 @@ namespace WhiteLabelWebshopS3.DAL.Repositories
         }
 
 
-        public async Task NewProduct(ProductModel product)
+        public async Task<ProductModel> NewProduct(ProductModel product)
         {
-            _storeContext.Add(new Product
+            var newproduct = _storeContext.Add(new Product
             {
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
                 Brand = product.Brand,
                 Stock = product.Stock
-            });
+            }).Entity;
             await _storeContext.SaveChangesAsync();
 
+            return new ProductModel()
+            {
+                Name = newproduct.Name,
+                Description = newproduct.Description,
+                Price = newproduct.Price,
+                Brand = newproduct.Brand,
+                Stock = newproduct.Stock
+            };
         }
 
-        public async Task UpdateProduct(ProductModel product, List<CategoryModel> categoryModels)
+        public async Task<ProductModel> UpdateProduct(ProductModel product)
         {
             var updateproduct = _storeContext.Products.Update(new Product()
             {
@@ -98,10 +107,19 @@ namespace WhiteLabelWebshopS3.DAL.Repositories
                 //Category = updaten van category?
                 Brand = product.Brand,
                 Stock = product.Stock
-            });
-
+            }).Entity;
             await _storeContext.SaveChangesAsync();
 
+            return new ProductModel()
+            {
+                Id = updateproduct.Id,
+                Name = updateproduct.Name,
+                Description = updateproduct.Description,
+                Price = updateproduct.Price,
+                //Category = updaten van category?
+                Brand = updateproduct.Brand,
+                Stock = updateproduct.Stock
+            };
         }
     }
 }

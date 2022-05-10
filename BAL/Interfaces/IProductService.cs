@@ -9,7 +9,7 @@ namespace WhiteLabelWebshopS3.BAL.Interfaces
         Task<List<ProductModel>> Index();
         Task<ProductModel> Get(int id);
         Task<ProductModel> NewProduct(ProductModel product);
-        Task<ProductModel> UpdateProduct(ProductModel product, List<CategoryModel> categoryModels);
+        Task<ProductModel> UpdateProduct(ProductModel product);
         Task<ProductModel> Delete(int id);
 
     }
