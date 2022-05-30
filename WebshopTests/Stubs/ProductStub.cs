@@ -60,7 +60,7 @@ namespace WebshopTests.Stubs
             });
         }
 
-        public Task<ProductModel>? Get(int id)
+        public Task<ProductModel> Get(int id)
         {
             var product = productModels.Find(x => x.Id == id);
             if(product == null)

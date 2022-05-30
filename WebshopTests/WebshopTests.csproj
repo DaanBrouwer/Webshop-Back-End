@@ -15,7 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Webshop-Back-End\WhiteLabelWebshopS3.csproj" />
+    <ProjectReference Include="..\Back-end\WhiteLabelWebshopS3.csproj" />
+    <ProjectReference Include="C:\VisualStudio\WhiteLabelWebshopS3Daan\Webshop-Back-End\WhiteLabelWebshopS3.csproj" />
   </ItemGroup>
 
 </Project>
