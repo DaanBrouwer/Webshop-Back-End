@@ -52,7 +52,6 @@ namespace WhiteLabelWebshopS3.DAL.Repositories
 
         public async Task<List<ProductModel>> Index()
         {
-
             var products = _storeContext.Products
                 .Select(product => new ProductModel
                 {
@@ -60,17 +59,19 @@ namespace WhiteLabelWebshopS3.DAL.Repositories
                     Name = product.Name,
                     Description = product.Description,
                     Price = product.Price,
-                    Category = (List<CategoryModel>)product.Category.Select(c => new CategoryModel
-                    {
-                        Id = c.Id,
-                        Name = c.Name
-                    }),
+
+                    //Category = (product.Category.Select(c => new CategoryModel
+                    //{
+                    //    Id = c.Id,
+                    //    Name = c.Name
+                    //}),
                     Brand = product.Brand,
                     Stock = product.Stock
-
                 }).ToListAsync();
 
-            return await products;
+
+            List<ProductModel> sources = await products;
+            return sources;
         }
 
 
@@ -104,7 +105,7 @@ namespace WhiteLabelWebshopS3.DAL.Repositories
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
-                //Category = updaten van category?
+                Category = (List<Category>)product.Category,
                 Brand = product.Brand,
                 Stock = product.Stock
             }).Entity;

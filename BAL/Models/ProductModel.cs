@@ -11,7 +11,7 @@ namespace WhiteLabelWebshopS3.BAL.Models
         public string Description { get; set; }
         public long Price { get; set; }
 
-        public List<CategoryModel> Category { get; set; }
+        public ICollection<CategoryModel> Category { get; set; }
         public ICollection<OrderDetailsModel> OrderDetails { get; set; }
 
         public string Brand { get; set; }

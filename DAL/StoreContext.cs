@@ -18,5 +18,6 @@ namespace WhiteLabelWebshopS3.DAL
         public DbSet<User> User { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }
         public DbSet<Order> Order { get; set; }
+        public DbSet<Basket> Basket { get; set; }
     }
 }

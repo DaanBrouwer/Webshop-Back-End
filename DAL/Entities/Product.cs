@@ -11,8 +11,8 @@ namespace WhiteLabelWebshopS3.DAL.Entities
         public string Description { get; set; }
         public long Price { get; set; }
 
-        public ICollection<Category> Category { get; set; }
-        public ICollection<OrderDetails> OrderDetails { get; set; }
+        public List<Category> Category { get; set; }
+        public List<OrderDetails> OrderDetails { get; set; }
 
         public string Brand { get; set; }
 

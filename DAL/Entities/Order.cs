@@ -14,7 +14,7 @@ namespace WhiteLabelWebshopS3.DAL.Entities
         public Customer Customer { get; set; }
         public Address Address { get; set; }
 
-        public ICollection<OrderDetails> OrderDetails { get; set; }
+        public List<OrderDetails> OrderDetails { get; set; }
 
 
     }
