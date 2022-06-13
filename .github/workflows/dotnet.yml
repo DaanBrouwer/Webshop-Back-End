@@ -45,6 +45,6 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/webshopapp:Back-End
+          tags: ${{ secrets.DOCKER_USERNAME }}/webshopapp:backend
 
 	
