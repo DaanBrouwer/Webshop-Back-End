@@ -66,15 +66,15 @@ namespace WhiteLabelWebshopS3.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateProduct(int id, ProductDTO product)
+        public async Task<ActionResult> UpdateProduct(ProductDTO product)
         {
-            if (id != product.Id)
-            {
-                return BadRequest();
-            }
+            //if (id != product.Id)
+            //{
+            //    return BadRequest();
+            //}
             return Ok(await _products.UpdateProduct(new ProductModel
             {
-                Id = id,
+                Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
                 Price= product.Price,

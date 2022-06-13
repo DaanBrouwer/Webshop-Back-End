@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
+using WhiteLabelWebshopS3.API;
 using WhiteLabelWebshopS3.BAL.Interfaces;
 using WhiteLabelWebshopS3.BAL.Services;
 using WhiteLabelWebshopS3.DAL;
@@ -27,6 +28,7 @@ namespace API
         {
 
             services.AddControllers();
+            services.AddSignalR();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
@@ -35,7 +37,16 @@ namespace API
             {
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("ClientPermission", policy =>
+                {
+                    policy.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithOrigins("https://localhost:3000")
+                        .AllowCredentials();
+                });
+            });
             services.AddScoped<IProducts, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
 
@@ -52,8 +63,10 @@ namespace API
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors("ClientPermission");
             app.UseRouting();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseCors(opt =>
             {
                 opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://localhost:3000");
@@ -64,6 +77,7 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("/hubs/chat");
             });
         }
     }

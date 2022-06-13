@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "WebshopTests": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-
+    name: Test .Net Project
     runs-on: ubuntu-latest
 
     steps:
@@ -23,3 +23,25 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+
+jobs: 
+  build:
+    name: Test .Net Project
+    runs-on: ubuntu-latest
+    steps:
+	- name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/webshopapp:Back-End
+
+	
